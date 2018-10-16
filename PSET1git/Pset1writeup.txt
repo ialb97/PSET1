@@ -1,0 +1,45 @@
+Part 3a:
+With a large increase in tourism in the area the use of paper and pen to keep logs of transactions would become an almost
+impossible task to do without risk for loss of revenue or missing of costs, which could be tough on a small mom and pop
+business. In order to solve these problems we need to analyze what processes the shop currently does using paper an pen
+and use that the make efficient their status quo so that they can keep up with the current demand and after seeing what their needs are in understanding their paper and pen structure we can move forward and make their jobs more efficient by computerizing the current process looks like we can go about finding ways to get more useful information in the 
+hands of the shop owner with their newfound computerized data.
+
+The main tasks that this mom and pop shop needs to keep calculated is:
+	1. The number of hours each employee is working
+	2. The wage per hour for each employee
+	3. Which boats are in working order
+	4. How much it costs per hour to use the boat
+	5. Reservations made by customer (including which boat, employee, day, and time)
+	6. How much the customer pays in order to use the boat (AKA revenue)
+	7. Cost of repairs for each boat
+	8. When repairs happen
+
+In order to solve these issues I would propose that the mom and pop store transition over to a SQL database in which 
+there will be 5 tables. An employees table, which stores the name and wages per hour of each employee. A punch in table 
+which would store the employee id, times the employee punched in, and the time of punch out, and the date of the punch in.
+ A boat table which stores the boatname, cost to operate the boat, the price to rent the boat, and whether the boat is in
+ service. A reservations table which stores the employee, boat, day, and time of each reservation that the rental shop 
+ has. The last table would be a repairs table which would store the boat that is out for repair, the cost of the
+ repair, the date it went out for repair, and the date it is returned.
+
+
+With this the mom and pop would be able to easily use the database to keep track of the times and dates that the employees are punching in and out and from that calculate the amount of hours they worked as well as how much money they are owed.
+They would be able to tell which boats are currently in service by checking the dates in the repair table. This would make sure they don't ever reserve a boat which is not available. They will be able to do this for the current day as well as any day in the past to see which boats are being reserved or if they are being overbooked and need to turn customers away.
+They would also be able to calculate the total costs of the business in order to run on any particular day or range of days including wages, operating costs, and cost of repairs.
+They will also be able to calculate the revenue that the company makes in order to keep on top of their finances and use the cost values in order to determine whether their prices are correct or if they are charging too close to their baseline.
+
+
+All this data would allow the mom and pop company to optimize their cost and revenue to best fit their particualr business as well as get an insight into their business from the perspective of the data that they had been using only for current business processes.
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,85 @@
+1. Select, for each boat, the sailor who made the highest number of reservations for that boat:
+	
+SELECT DISTINCT B.bname, B.bid, S.sname, S.sid, COUNT(*) As 'NumRentals'
+FROM  boats B JOIN reserves R ON B.bid = R.bid
+              JOIN sailors S ON S.sid = R.sid
+GROUP BY B.bname,B.bid, S.sname, S.sid
+HAVING NumRentals >= ALL 
+                (SELECT COUNT(*)
+                 From reserves R1
+                 WHERE R1.bid = B.bid
+                 GROUP BY R1.sid)
+ORDER BY B.bid
+
+
+
+2.List, for every boat, the number of times it has been reserved, excluding those boats that have never been reserved 
+(list the id and the name).:
+
+
+SELECT B.bname, B.bid, COUNT(*)
+FROM boats B JOIN reserves R on B.bid = R.bid
+GROUP BY B.bname, B.bid
+ORDER BY b.bid
+
+
+3.List those sailors who have reserved every red boat (list the id and the name).
+
+
+SELECT S.sid, S.sname
+FROM sailors S
+WHERE (SELECT Count(DISTINCT B.bid)
+       FROM boats B JOIN reserves R ON B.bid = R.bid
+       WHERE R.sid = S.sid AND B.color = 'red'
+      )
+      =
+      (SELECT COUNT(B.bid)
+       FROM boats B
+       WHERE B.color = 'red'
+      )
+
+
+
+
+4.List those sailors who have reserved only red boats.
+
+Select S.sname, S.sid
+FROM sailors S
+WHERE NOT EXISTS 
+               (SELECT *
+                FROM reserves R JOIN boats B ON R.bid = B.bid
+                WHERE R.sid = S.sid AND b.color !='red'
+                  )
+GROUP BY S.sname, S.sid
+
+
+
+
+5.For which boat are there the most reservations?:
+
+SELECT R.bid,B.bname,COUNT(R.bid) 
+FROM reserves R JOIN boats B ON R.bid=B.bid
+GROUP BY R.bid
+HAVING COUNT(R.bid) = (SELECT MAX(m.num)
+                      FROM (SELECT R.bid,COUNT(R.bid) AS num
+                      FROM reserves R
+                      GROUP BY R.bid) m)
+
+
+6.Select all sailors who have never reserved a red boat.:
+
+SELECT S.sname, S.sid
+FROM sailors S
+WHERE S.sid != ALL (SELECT DISTINCT S1.sid
+                    FROM sailors S1 JOIN reserves R ON S1.sid = R.sid
+                    JOIN boats B ON R.bid = B.bid
+                    WHERE B.color = 'red')
+
+
+7.Find the average age of sailors with a rating of 10:
+
+SELECT AVG(S.age)
+FROM sailors S
+WHERE S.rating = 10
+
+
